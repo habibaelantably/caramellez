@@ -1,7 +1,6 @@
 
-class ProductColorStates{}
+class ChooseProductColorState{}
 
-class InitialProductColorState extends ProductColorStates{}
+class InitialProductColorState extends ChooseProductColorState{}
 
-class ChangeProductColorState extends ProductColorStates{}
-
+class ChangeProductColorState extends ChooseProductColorState{}

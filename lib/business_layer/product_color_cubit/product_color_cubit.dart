@@ -2,20 +2,18 @@
 import 'package:caramellez/business_layer/product_color_cubit/product_color_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class ProductColorCubit extends Cubit<ProductColorStates>
+class ChooseProductColorCubit extends Cubit<ChooseProductColorState>
 {
-  ProductColorCubit() : super(InitialProductColorState());
+  ChooseProductColorCubit() : super(InitialProductColorState());
 
-  static ProductColorCubit get(context)=>BlocProvider.of(context);
+  static ChooseProductColorCubit get(context)=>BlocProvider.of(context);
 
-  int? productColor;
+  int productColor=0;
 
   void changeProductColor(index)
   {
     productColor=index;
     emit(ChangeProductColorState());
   }
-
-
 }
 

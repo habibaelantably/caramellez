@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:caramellez/presentation_layer/helpers/navigation.dart';
+import 'package:caramellez/presentation_layer/screens/favorites_screen/favorites_screen.dart';
 import 'package:caramellez/presentation_layer/screens/order_details_screen/order_details_scren.dart';
 import 'package:caramellez/presentation_layer/widgets/order_widget/order_widget.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +22,8 @@ class OrderScreen extends StatelessWidget
         leading:   Padding(
         padding: const EdgeInsets.only(left: 8.0),
           child: IconButton(
-            icon: const Icon(Icons.arrow_back_ios),
+            icon: Platform.isIOS? const Icon(Icons.arrow_back_ios,color: Colors.black,):
+            const Icon(Icons.arrow_back,color: Colors.black,),
             onPressed:(){Navigator.pop(context);},
             color: Colors.black,
              ),),
@@ -34,7 +38,11 @@ class OrderScreen extends StatelessWidget
         actions: [
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Image.asset('assets/images/fav icon.png',height: height/16,width: width/19,),
+            child: InkWell(
+                onTap: (){
+                  navigateTo(context,const FavoriteScreen());
+                },
+                child: Image.asset('assets/images/fav icon.png',height: height/13,width: width/13,)),
           ),
 
         ],

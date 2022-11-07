@@ -1,19 +1,41 @@
-import 'package:caramellez/Presentation_Layer/Screens/auth_layout/login_screen/login_screen.dart';
 import 'package:caramellez/presentation_layer/screens/auth_layout/register_screen/Register_screen.dart';
 import 'package:flutter/material.dart';
 
-class AuthLayout extends StatefulWidget{
-  const AuthLayout({Key? key}) : super(key: key);
+import 'login_screen/login_screen.dart';
 
-  @override
+class AuthLayout extends StatefulWidget{
+   const AuthLayout({Key? key}) : super(key: key);
+
+
+   @override
   State<AuthLayout> createState() => _AuthLayoutState();
 }
 
 class _AuthLayoutState extends State<AuthLayout> with TickerProviderStateMixin{
+
+  TabController? tabController;
+
+  @override
+  void initState() {
+    super.initState();
+     RegisterScreen.nameController;
+     RegisterScreen.emailController;
+     RegisterScreen.phoneController;
+     RegisterScreen.passwordController;
+     RegisterScreen.confirmPasswordController;
+     LoginScreen.emailController;
+     LoginScreen.passwordController;
+
+     tabController = TabController(length: 2, vsync: this);
+  }
+
+  // @override
+  // // ignore: must_call_super
+  // void didChangeDependencies() {}
+
   @override
   Widget build(BuildContext context) {
-    TabController tabController =TabController(length: 2, vsync: this);
-  return Scaffold(
+    return Scaffold(
     body: SingleChildScrollView(
       child: Padding(
         padding:  EdgeInsets.only(top: MediaQuery.of(context).size.height/15),
@@ -21,15 +43,15 @@ class _AuthLayoutState extends State<AuthLayout> with TickerProviderStateMixin{
           children: [
             const Center(child: Image(image: AssetImage('assets/images/logo.png'),)),
              SizedBox(height: MediaQuery.of(context).size.height/35,),
-            Container(
+            SizedBox(
               height:MediaQuery.of(context).size.height/12,
               child: TabBar(
                 controller: tabController,
                 indicatorColor: Colors.black,
                 indicatorSize: TabBarIndicatorSize.label,
-                indicatorWeight: 10.0,
+                indicatorWeight: 7.0,
                 tabs: const <Widget>[
-                  Text('تسجيل الدخول',
+                  Text('Login',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         fontFamily: 'Din',
@@ -37,7 +59,7 @@ class _AuthLayoutState extends State<AuthLayout> with TickerProviderStateMixin{
                         color: Colors.black
                     ),
                   ),
-                  Text('حساب جديد',
+                  Text('Register',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         fontFamily: 'Din',
@@ -49,19 +71,18 @@ class _AuthLayoutState extends State<AuthLayout> with TickerProviderStateMixin{
 
               ),
             ),
-            Container(
-              width: double.infinity,
-              height:600.0,
+            SizedBox(
+              width: MediaQuery.of(context).size.width,
+              height:MediaQuery.of(context).size.height/1,
               child: TabBarView(
                 controller: tabController,
-                children:const <Widget> [
+                children: <Widget> [
                   LoginScreen(),
                   RegisterScreen()
                 ],
               ),
             )
           ],
-
         ),
       ),
     ),

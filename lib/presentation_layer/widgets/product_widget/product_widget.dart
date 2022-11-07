@@ -2,17 +2,17 @@ import 'package:flutter/material.dart';
 
 class BuildProductItemWidget extends StatelessWidget
 {
-   BuildProductItemWidget({Key? key,required this.productImage,
+    const BuildProductItemWidget({Key? key,required this.productImage,
      required this.productName,
      required this.productPrice,
      required this.itemType,
-     this.productCategory,
+     required this.productCategory,
    }) : super(key: key);
-   String productImage;
-   String productName;
-   String productPrice;
-   int itemType;
-   String? productCategory;
+   final String productImage;
+   final String productName;
+   final String productPrice;
+   final int itemType;
+   final String productCategory;
 
 
    @override
@@ -30,92 +30,86 @@ class BuildProductItemWidget extends StatelessWidget
         ],
         color: Colors.white,
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child: Stack(
         children: [
-          Stack(
-            //better than
-            alignment :/*itemType ==2 ? AlignmentDirectional.topStart :*/ AlignmentDirectional.topStart,
+          Column(
             children: [
-              Container(
-                decoration:  BoxDecoration(
-                  borderRadius: const BorderRadius.only(
-                    topRight: Radius.circular(20.0),
-                    topLeft: Radius.circular(20.0),
-                  ),
-                  image:  DecorationImage(
-                    image: AssetImage(productImage),
-                    fit: BoxFit.fill,
-                  ),
-                ),
-                height: MediaQuery.of(context).size.width/1.64,
+              SizedBox(
+                height: MediaQuery.of(context).size.height/4,
                 width: MediaQuery.of(context).size.width/2,
-
+                child: ClipRRect(borderRadius: const BorderRadius.only(
+                    topRight: Radius.circular(18),
+                    topLeft:Radius.circular(18)),
+                    child:FittedBox(child: Image.asset('assets/images/onBoarding.png'),fit: BoxFit.cover,)),
               ),
-              if(itemType==1)
-              const Padding(
-                padding: EdgeInsets.all(10.0),
-                child:  Icon(Icons.favorite,color: Colors.orange,),
-              ),
-           //better than
-           //   itemType==1 ? SizedBox(height: 20,) : SizedBox(height: 0,),
-
-              if(itemType==2)
               Padding(
-                padding: const EdgeInsets.only(left: 8.0,top: 8.0,right: 8.0),
-                child: Container(
-                  decoration: BoxDecoration(color: Colors.orange,borderRadius: BorderRadiusDirectional.circular(18)),
-                child: const Padding(
-                  padding: EdgeInsets.only(left: 8.0,right: 8.0,top: 0.0,bottom: 0.0),
-                  child: Text('افضل العروض',style: TextStyle(color: Colors.white),),
-                ),
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children:  [
+                    Text(productName,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                        fontFamily: 'Din',
+                        color:Colors.grey,
+                      ),
+                    ),
+                    Text(productPrice,
+                      style: const TextStyle(
+                        fontFamily: 'Din',
+                        color:Colors.black,
+                      ),
+                    ),
+                  ],
                 ),
               ),
-                // Padding(
-                //   padding: const EdgeInsets.all(10.0),
-                //   child: Container(
-                //    // width: MediaQuery.of(context).size.width/3.6,
-                //     height: MediaQuery.of(context).size.height/30,
-                //     decoration: const BoxDecoration(
-                //       borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                //       color: Colors.orangeAccent,),
-                //     child:  Text(
-                //       productCategory!,
-                //       style: const TextStyle(
-                //         fontFamily: 'Din',
-                //         color:Colors.white,
-                //       ),
-                //
-                //     ),
-                //
-                //   ),
-                // ),
             ],
           ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+          if(itemType==1)...[
+            Column(
               children: [
-                Text(productName,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                    fontFamily: 'Din',
-                    color:Colors.grey,
+                Padding(
+                  padding: const EdgeInsets.only(left: 8.0,right: 8.0,top: 8.0),
+                  child: Container(
+                    decoration:  const BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                      color: Colors.orange,
+                    ),
+                    child: Text(productCategory,style: const TextStyle(color: Colors.white),),
                   ),
-                ),
-                Text(productPrice,
-                  style: const TextStyle(
-                    fontFamily: 'Din',
-                    color:Colors.black,
-                  ),
-                ),
+                )
               ],
             ),
-          )
+          ]
+          else if(itemType==2)...[
+            Column(
+              children: [
+                SizedBox(
+                  height: MediaQuery.of(context).size.height/4.7,
+                ),
+
+                const Padding(
+                    padding: EdgeInsets.only(left: 8.0,right: 8.0),
+                    child: const Icon(Icons.favorite_border,color: Colors.orange,)
+                )
+              ],
+            ),
+          ]else if(itemType==3)...[
+            Column(
+              children: const [
+                Padding(
+                    padding: EdgeInsets.only(left: 8.0,right: 8.0,top: 8.0),
+                    child: Icon(Icons.favorite,color: Colors.orange,)
+                )
+              ],
+            ),
+          ]
         ],
-      ),
+      )
+
+
     );
   }
 }

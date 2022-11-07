@@ -2,7 +2,12 @@ import 'package:caramellez/business_layer/counter_cubit/counter_cubit.dart';
 import 'package:caramellez/business_layer/counter_cubit/counter_states.dart';
 import 'package:caramellez/business_layer/product_color_cubit/product_color_cubit.dart';
 import 'package:caramellez/business_layer/product_color_cubit/product_color_state.dart';
+import 'package:caramellez/business_layer/product_size_cubit/product_size_cubit.dart';
+import 'package:caramellez/business_layer/product_size_cubit/product_size_states.dart';
 import 'package:caramellez/presentation_layer/helpers/constants.dart';
+import 'package:caramellez/presentation_layer/helpers/navigation.dart';
+import 'package:caramellez/presentation_layer/screens/cart_screen/cart_screen.dart';
+import 'package:caramellez/presentation_layer/widgets/Image_View/Image_view.dart';
 import 'package:caramellez/presentation_layer/widgets/product_color_widget/product_color_widget.dart';
 import 'package:caramellez/presentation_layer/widgets/product_size_widget/product_size.dart';
 import 'package:caramellez/presentation_layer/widgets/shared_widgets/default_button/default_button.dart';
@@ -29,14 +34,22 @@ class ProductDetails extends StatelessWidget
 
            Padding(
              padding: const EdgeInsets.all(8.0),
-             child: Image.asset('assets/images/fav icon.png'),
+             child: InkWell(
+                 onTap: (){
+                   //navigateTo(context,const FavoriteScreen());
+                 },
+                 child: Image.asset('assets/images/fav icon.png',height: height/13,width: width/13,)),
            ),
          ],
        ),
        actions: [
          Padding(
-           padding: const EdgeInsets.symmetric(horizontal: 10.0),
-           child: Image.asset('assets/images/bag icon.png',height: height/16,width: width/19,),
+           padding: const EdgeInsets.only(right: 10.0),
+           child: InkWell(
+               onTap: (){
+                 navigateTo(context, CartScreen());
+               },
+               child: Image.asset('assets/images/cart.png',height: height/13,width: width/13,)),
          ),
        ],
 
@@ -51,85 +64,7 @@ class ProductDetails extends StatelessWidget
                  mainAxisAlignment: MainAxisAlignment.start,
                  crossAxisAlignment: CrossAxisAlignment.start,
                  children: [
-                   Container(
-                     height: 450,
-                     width: double.infinity,
-                     decoration: const BoxDecoration(
-                       image: DecorationImage(image: AssetImage('assets/images/onBoarding.png'),fit: BoxFit.cover),
-                       borderRadius: BorderRadius.all(Radius.circular(20.0)),
-                     ),
-                     child: BlocProvider(
-                       create: (BuildContext context) => ProductColorCubit(),
-                       child: BlocConsumer<ProductColorCubit,ProductColorStates>(
-                         listener: (BuildContext context, state) {  },
-                         builder: (BuildContext context, Object? state) {
-                           return Padding(
-                             padding: const EdgeInsets.all(8.0),
-                             child: Column(
-                               mainAxisAlignment: MainAxisAlignment.end,
-                               crossAxisAlignment: CrossAxisAlignment.start,
-                               children: [
-                                 InkWell(
-                                   onTap: (){
-                                     ProductColorCubit.get(context).changeProductColor(1);
-                                   },
-                                   child: Container(
-                                     height: 70,
-                                     width: 70,
-                                     decoration:  BoxDecoration(
-                                         image: const DecorationImage(image: AssetImage('assets/images/onBoarding.png'),fit: BoxFit.cover),
-                                         borderRadius: const BorderRadius.all(Radius.circular(20.0)),
-                                         border: Border.all(
-                                           color: ProductColorCubit.get(context).productColor==1? defaultColor : Colors.grey,
-                                           width: 1,
-                                         )
-                                     ),
-                                   ),
-                                 ),
-                                 const SizedBox(height: 10,),
-                                 InkWell(
-                                   onTap: (){
-                                     ProductColorCubit.get(context).changeProductColor(2);
-                                   },
-                                   child: Container(
-                                     height: 70,
-                                     width: 70,
-                                     decoration:  BoxDecoration(
-                                         image: const DecorationImage(image: AssetImage('assets/images/onBoarding.png'),fit: BoxFit.cover),
-                                         borderRadius: const BorderRadius.all(Radius.circular(20.0)),
-                                         border: Border.all(
-                                           color: ProductColorCubit.get(context).productColor==2? defaultColor : Colors.grey,
-                                           width: 1,
-                                         )
-                                     ),
-                                   ),
-                                 ),
-                                 const SizedBox(height: 10,),
-                                 InkWell(
-                                   onTap: (){
-                                     ProductColorCubit.get(context).changeProductColor(3);
-                                   },
-                                   child: Container(
-                                     height: 70,
-                                     width: 70,
-                                     decoration:  BoxDecoration(
-                                         image: const DecorationImage(image: AssetImage('assets/images/onBoarding.png'),fit: BoxFit.cover),
-                                         borderRadius: const BorderRadius.all(Radius.circular(20.0)),
-                                         border: Border.all(
-                                           color: ProductColorCubit.get(context).productColor==3? defaultColor : Colors.grey,
-                                           width: 1,
-                                         )
-                                     ),
-                                   ),
-                                 ),
-
-                               ],
-                             ),
-                           );
-                         },
-                       ),
-                     ),
-                   ),
+                   const ImageView(mainImageURL: 'assets/images/onBoarding.png', imageURL:  'assets/images/onBoarding.png'),
                    const SizedBox(height: 10.0,),
                    const Text('product Name'),
                    const SizedBox(height: 10,),
@@ -149,12 +84,19 @@ class ProductDetails extends StatelessWidget
                            SizedBox(
                              height: height/20,
                              width: width/4,
-                             child: ListView.separated(
-                                 itemBuilder: (context,index)=>const ProductColorItem(productColor: Colors.purple),
-                                 separatorBuilder: (context,index)=>const SizedBox(width: 10,),
-                                 itemCount: 4,
-                             shrinkWrap: true,
-                               scrollDirection: Axis.horizontal,
+                             child: BlocProvider(
+                               create: (context)=>ChooseProductColorCubit(),
+                               child: BlocBuilder<ChooseProductColorCubit,ChooseProductColorState>(
+                                 builder: (BuildContext context, state) {
+                                   return ListView.separated(
+                                     itemBuilder: (context,index)=>ProductColorItem(index: index, productColor: Colors.purple,) ,
+                                     separatorBuilder: (context,index)=>const SizedBox(width: 10,),
+                                     itemCount: 4,
+                                     shrinkWrap: true,
+                                     scrollDirection: Axis.horizontal,
+                                   );
+                                 },
+                               ),
                              ),
                            ),
                          ],
@@ -167,12 +109,19 @@ class ProductDetails extends StatelessWidget
                            SizedBox(
                              height: height/20,
                              width: width/4,
-                             child: ListView.separated(
-                               itemBuilder: (context,index)=>const ProductSizeItem(size: '46'),
-                               separatorBuilder: (context,index)=>const SizedBox(width: 10,),
-                               itemCount: 4,
-                               shrinkWrap: true,
-                               scrollDirection: Axis.horizontal,
+                             child: BlocProvider(
+                               create: (context)=>ChooseProductSizeCubit(),
+                               child: BlocBuilder<ChooseProductSizeCubit,ChooseProductSizeState>(
+                                 builder: (BuildContext context, state) {
+                                   return ListView.separated(
+                                     itemBuilder: (context,index)=> ProductSizeItem(size: '46',index: index,),
+                                     separatorBuilder: (context,index)=>const SizedBox(width: 10,),
+                                     itemCount: 4,
+                                     shrinkWrap: true,
+                                     scrollDirection: Axis.horizontal,
+                                   );
+                                 },
+                               ),
                              ),
                            ),
                          ],
@@ -226,6 +175,7 @@ class ProductDetails extends StatelessWidget
                          background: defaultColor,
                          width: 200,
                          height: 50,
+                         radius: 15,
 
                        ),
                        const Spacer(),
@@ -246,7 +196,7 @@ class ProductDetails extends StatelessWidget
                                  ),
                                  color: Colors.white,
                                ),
-                               child: const Center(child: Text('+')),
+                               child: const FittedBox(child: Center(child: Text('+'))),
                              ),
                            ),
                            Padding(
@@ -268,7 +218,7 @@ class ProductDetails extends StatelessWidget
                                  ),
                                  color: Colors.white,
                                ),
-                               child: const Center(child: Text('-',style: TextStyle(fontSize: 22),)),
+                               child: const FittedBox(child: Center(child: Text('-',style: TextStyle(fontSize: 22),))),
                              ),
                            ),
                          ],

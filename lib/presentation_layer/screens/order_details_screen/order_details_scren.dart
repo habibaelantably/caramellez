@@ -1,4 +1,6 @@
 
+import 'dart:io';
+
 import 'package:caramellez/presentation_layer/widgets/order_widget/order_widget.dart';
 import 'package:caramellez/presentation_layer/widgets/stepper_widget/stepper_widget.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +18,8 @@ class OrderDetails extends StatelessWidget
         leading:   Padding(
           padding: const EdgeInsets.only(left: 8.0),
           child: IconButton(
-            icon: const Icon(Icons.arrow_back_ios),
+            icon: Platform.isIOS? const Icon(Icons.arrow_back_ios,color: Colors.black,):
+            const Icon(Icons.arrow_back,color: Colors.black,),
             onPressed:(){
             Navigator.pop(context);
           },

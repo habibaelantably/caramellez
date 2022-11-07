@@ -15,13 +15,13 @@ class DefaultButton extends StatelessWidget
      required this.function,
 
    }) : super(key: key);
-  double? width;
-  double? height;
-  Color? background ;
-  bool isUpperCase = true;
-  double? radius = 0.0;
-  Function function;
-  String text;
+  final double? width;
+  final double? height;
+  final Color? background ;
+  final double? radius ;
+  final bool isUpperCase ;
+  final Function function;
+  final String text;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +29,7 @@ class DefaultButton extends StatelessWidget
     height: height,
     width: width,
     decoration: BoxDecoration(
-    borderRadius: BorderRadius.circular(15.0),
+    borderRadius: BorderRadius.circular(radius!),
     color: background ?? defaultColor,
   ),
   child: MaterialButton(

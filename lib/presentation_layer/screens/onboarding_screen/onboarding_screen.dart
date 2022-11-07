@@ -44,7 +44,7 @@ class OnBoardingScreen extends StatelessWidget {
                  onPressed:(){
                    navigateTo(context,const WelcomeScreen());
                  } ,
-                 child: const Text('ابدأ الان',
+                 child: const Text('Start Now',
                    style: TextStyle(color: Colors.black87),
                  ),
                ),

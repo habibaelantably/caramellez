@@ -1,4 +1,7 @@
 
+import 'package:caramellez/presentation_layer/helpers/navigation.dart';
+import 'package:caramellez/presentation_layer/screens/cart_screen/cart_screen.dart';
+import 'package:caramellez/presentation_layer/screens/home_layout/home_layout.dart';
 import 'package:caramellez/presentation_layer/widgets/product_widget/product_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -16,7 +19,11 @@ class FavoriteScreen extends StatelessWidget
         backgroundColor: Colors.grey[50],
         leading:  Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8.0),
-          child: Icon(Icons.arrow_back_ios_rounded,size: width/12,color: Colors.black,),
+          child: InkWell(
+              onTap: (){
+                navigateTo(context, const Layout());
+              },
+              child: Icon(Icons.arrow_back_ios_rounded,size: width/12,color: Colors.black,)),
         ),
         title: Padding(
           padding: const EdgeInsets.only(top: 8.0),
@@ -27,10 +34,13 @@ class FavoriteScreen extends StatelessWidget
         ),
         centerTitle: true,
         actions: [
-
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 14.0),
-            child: Image.asset('assets/images/bag icon.png',height: height/15,width: width/18,),
+            padding: const EdgeInsets.only(right: 10.0),
+            child: InkWell(
+                onTap: (){
+                  navigateTo(context,CartScreen());
+                },
+                child: Image.asset('assets/images/cart.png',height: height/13,width: width/13,)),
           ),
         ],
 
@@ -49,9 +59,10 @@ class FavoriteScreen extends StatelessWidget
                   physics: const NeverScrollableScrollPhysics(),
                   children:List.generate(
                       10,
-                          (index)=>BuildProductItemWidget(
-                            itemType: 1,
+                          (index)=>const BuildProductItemWidget(
+                            itemType: 3,
                         productPrice: '275',
+                        productCategory: 'best sales',
                         productName: 'فسان نسائى طويل للسهرات',
                         productImage: 'assets/images/productImage.png',)
                   )

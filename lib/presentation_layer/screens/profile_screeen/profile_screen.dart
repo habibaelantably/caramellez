@@ -1,14 +1,15 @@
 
  import 'package:caramellez/presentation_layer/helpers/navigation.dart';
+import 'package:caramellez/presentation_layer/screens/edit_profile_screen/edit_profile_screen.dart';
 import 'package:caramellez/presentation_layer/screens/help_screen/help-screen.dart';
 import 'package:caramellez/presentation_layer/screens/home_layout/home_layout.dart';
 import 'package:caramellez/presentation_layer/screens/order_screen/order_screen.dart';
 import 'package:caramellez/presentation_layer/widgets/profile_widget/profile_widget.dart';
 import 'package:flutter/material.dart';
 
-class profileScreen extends StatelessWidget
+class ProfileScreen extends StatelessWidget
  {
-  const profileScreen({Key? key}) : super(key: key);
+  const ProfileScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -42,9 +43,11 @@ class profileScreen extends StatelessWidget
                 const CircleAvatar(
                  backgroundImage: AssetImage('assets/images/logo.png'),
                   radius: 55,
+                  backgroundColor: Colors.white,
                 ),
                 const SizedBox(height: 10,),
                 const Text('habiba.g.elantably@gmail.com'),
+                const SizedBox(height: 10,),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: const [
@@ -63,17 +66,21 @@ class profileScreen extends StatelessWidget
                           navigateTo(context, const Layout());
                         },
                         child: const BuildProfileItem(profileItem: 'Home Page',)),
-                    const BuildProfileItem(profileItem: 'credit',),
+                    const BuildProfileItem(profileItem: 'Credit',),
                     InkWell(
                         onTap: (){navigateTo(context, const OrderScreen());},
                         child: const BuildProfileItem(profileItem: 'My orders',)),
-                    const BuildProfileItem(profileItem: 'edit profile',),
+                    InkWell(
+                        onTap: (){
+                          navigateTo(context, EditProfile());
+                        },
+                        child: const BuildProfileItem(profileItem: 'Edit profile',)),
                     InkWell(
                         onTap: (){
                           navigateTo(context, const HelpScreen());
                         },
-                        child: const BuildProfileItem(profileItem: 'help',)),
-                    const BuildProfileItem(profileItem: 'logout',),
+                        child: const BuildProfileItem(profileItem: 'Help',)),
+                    const BuildProfileItem(profileItem: 'Logout',),
                      BuildProfileIconItem(image1: 'assets/images/facebook.png',image2: 'assets/images/instagram.png'),
                      BuildProfileIconItem(image1: 'assets/images/snapchat.png',image2: 'assets/images/twitter.png'),
                   ],

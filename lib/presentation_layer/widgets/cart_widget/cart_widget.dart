@@ -41,12 +41,14 @@ class CartItem extends StatelessWidget
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(productName, //el text by7salo overflow bardo?? w el spacer hena by5ly el widget t5tfy
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
+                  FittedBox(
+                    child: Text(productName, //el text by7salo overflow bardo?? w el spacer hena by5ly el widget t5tfy
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
                   const SizedBox(height: 10,),
-                  Text(productPrice),
+                  FittedBox(child: Text(productPrice)),
                   const SizedBox(height: 10,),
                   Row(
                     children: [
@@ -67,7 +69,7 @@ class CartItem extends StatelessWidget
                                 ),
                                 color: Colors.white,
                               ),
-                              child: const Center(child: Text('+')),
+                              child: const FittedBox(child: Center(child: Text('+',))),
                             ),
                           ),
                           Padding(
@@ -89,7 +91,7 @@ class CartItem extends StatelessWidget
                                 ),
                                 color: Colors.white,
                               ),
-                              child: const Center(child: Text('-',style: TextStyle(fontSize: 22),)),
+                              child: const FittedBox(child: Center(child: Text('-',))),
                             ),
                           ),
                         ],
@@ -101,18 +103,20 @@ class CartItem extends StatelessWidget
               const Spacer(),
               Column(
                 children: [
-                  Container(
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(10)),
-                      color: Colors.grey,
-                    ),
-                    child:  Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child: Center(child: Text(productCode)),
+                  FittedBox(
+                    child: Container(
+                      decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                        color: Colors.grey,
+                      ),
+                      child:  Padding(
+                        padding: const EdgeInsets.all(5.0),
+                        child: Center(child: Text(productCode,style: const TextStyle(fontSize:12),)),
+                      ),
                     ),
                   ),
                   const SizedBox(height: 30,),
-                  const Icon(Icons.delete_forever, color: Colors.red),
+                  FittedBox(child: const Icon(Icons.delete_forever, color: Colors.red,size: 30,)),
                 ],
               )
             ],
