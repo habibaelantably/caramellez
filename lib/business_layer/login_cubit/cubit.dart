@@ -26,7 +26,7 @@ class LoginCubit extends Cubit<LoginStates> {
          // "device_token": value.toString(),
          // "device_id": Platform.isIOS ? '${iosInfo!.identifierForVendor}' : '${androidInfo!.id}',
         }).then((value) {
-        if(value.data['success'] == true){
+        if(value.data['success'] == true && value.statusCode==200){
         print(value.data['message']);
         CacheHelper.saveDataSharedPreference(key: 'token', value: value.data['data']['token'].toString());
         emit(LoginSuccessState(value.data['message'].toString()));

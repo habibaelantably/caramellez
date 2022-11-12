@@ -5,12 +5,17 @@ import 'package:caramellez/presentation_layer/helpers/constants.dart';
 import 'package:caramellez/presentation_layer/screens/onboarding_screen/onboarding_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+// import 'package:http/http.dart' as http;
+// import 'package:http/retry.dart';
+
+
 
 
 void main()async {
   WidgetsFlutterBinding.ensureInitialized();
   DioHelper.init();
   await CacheHelper.init();
+  // RetryClient(http.Client()).read(Uri.http("1665391957.jpeg", ''));
 
   Bloc.observer = MyBlocObserver();
   runApp(const MyApp());

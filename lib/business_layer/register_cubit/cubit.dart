@@ -23,7 +23,7 @@ class RegisterCubit extends Cubit<RegisterStates>
   String? confirmPassword
   })async{
     emit(RegisterLoadingState());
-    DioHelper.postData(
+   DioHelper.postData(
         url: signUpEndPoint,
         data: {
           'name':name,
@@ -32,8 +32,7 @@ class RegisterCubit extends Cubit<RegisterStates>
           'password':password,
           'password_confirmation':confirmPassword
     }).then((value){
-      // registerModel=UserAuthModel.fromJson(value.data);
-      if(value.data['success'] == true ){
+      if(value.data['success'] == true && value.statusCode==200){
       print(value.data['message']);
       // print(registerModel!.message);
       CacheHelper.saveDataSharedPreference(key: 'token', value: value.data['data']['token'].toString());

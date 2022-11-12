@@ -8,11 +8,11 @@ class FiltersCubit extends Cubit<FiltersStates>
 
   static FiltersCubit get(context)=>BlocProvider.of(context);
 
-  int filterColor=0;
+  int filterIndex=0;
 
   void changeFilterColor(index)
   {
-    filterColor=index;
+    filterIndex=index;
     emit(ChangeFilterState(index));
   }
 }

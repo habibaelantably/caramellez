@@ -24,7 +24,8 @@ class DioHelper {
       // 'lang': getLanguage() !=null ? getLanguage().toString(): "ar",
       // 'currency': getCurrency() !=null ? '${utf8.fuse(base64).encode(getCurrency().toString())}' : '${utf8.fuse(base64).encode("${LocaleKeys.k_currency.tr()}")}',
       'Authorization': 'Bearer $token',
-      'Content-Type': 'application/json',
+      //'Content-Type': 'application/json',
+      "Accept":"application/json",
     };
     return await dio!.get(url, queryParameters: query,);
   }

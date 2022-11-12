@@ -11,15 +11,14 @@ class HomeDataCubit extends Cubit<HomeDataStates> {
   HomeDataCubit() : super(HomeDataInitialState());
   static HomeDataCubit get(context)=>BlocProvider.of(context);
   late HomeModel homeModel ;
-  homeData() async {
+  getHomeData() async {
     emit(HomeDataLoadingState());
     DioHelper.getData(
         url: getHomeDataEndPoint,
-       token: '',
-       query: {}
+        query: {}
     ).then((value) {
-      if (value.statusCode == 200) {
-        homeModel = HomeModel.fromJson(value.data);
+      homeModel = HomeModel.fromJson(value.data);
+      if (value.statusCode == 200 && homeModel.success==true) {
         emit(HomeDataSuccessState(message:value.data['message'].toString(),homeModel:homeModel));
       }
     }).catchError((e) {

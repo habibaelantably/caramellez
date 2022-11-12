@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 
 class BuildProductItemWidget extends StatelessWidget
 {
-    const BuildProductItemWidget({Key? key,required this.productImage,
+    const BuildProductItemWidget({Key? key,
+     required this.productImage,
      required this.productName,
      required this.productPrice,
      required this.itemType,
@@ -40,7 +41,7 @@ class BuildProductItemWidget extends StatelessWidget
                 child: ClipRRect(borderRadius: const BorderRadius.only(
                     topRight: Radius.circular(18),
                     topLeft:Radius.circular(18)),
-                    child:FittedBox(child: Image.asset('assets/images/onBoarding.png'),fit: BoxFit.cover,)),
+                    child:FittedBox(child:Image(image: NetworkImage(productImage),),fit: BoxFit.cover,)),
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -92,7 +93,7 @@ class BuildProductItemWidget extends StatelessWidget
 
                 const Padding(
                     padding: EdgeInsets.only(left: 8.0,right: 8.0),
-                    child: const Icon(Icons.favorite_border,color: Colors.orange,)
+                    child: Icon(Icons.favorite_border,color: Colors.orange,)
                 )
               ],
             ),
